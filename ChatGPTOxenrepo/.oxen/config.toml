@@ -3,4 +3,4 @@ remote_name = "origin"
 
 [[remotes]]
 name = "origin"
-url = "https://hub.oxen.ai/nickchu8/ChatGPTBadAnswerPrompt2"
+url = "https://hub.oxen.ai/nickchu8/ChatGPTevaluations"

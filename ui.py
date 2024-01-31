@@ -1,6 +1,7 @@
 import gradio as gr
 import os
 import oxen
+from oxen import RemoteRepo
 from oxen.auth import config_auth
 from oxen.user import config_user
 import json
@@ -15,6 +16,7 @@ import jsonlines
 
 
 bad_prompt = ""
+repo = RemoteRepo("nickchu8/Prompts-ChatGPT-Answers-Poorly")
 
 # Function to update the bad_prompt variable
 def update_bad_prompt(input_text):
@@ -29,20 +31,25 @@ def update_bad_prompt(input_text):
     data = [{"Prompt": bad_prompt}]
     with jsonlines.open(file_path, 'a') as writer:
         writer.write_all(data)
+
     return bad_prompt
 
 def oxbutton_callback():
     '''
     when button is clicked, prompts.json is pushed to oxen repo, clear jsonl
     '''
-    return "button clicked"
+    repo.add('prompts.jsonl')
+    repo.commit('Adding prompts to oxen repo')
+
+    return "Prompts added to oxen repo!"
 
 
 with gr.Blocks() as demo:
-    gr.Markdown("Type the ChatGPT bad prompt in the textbox below. Click Submit to save it to json on disk. Click Save to Oxen to save the prompts to Oxen.")
+    gr.Markdown("Type the ChatGPT bad prompt in the textbox below. Click Save prompt to json to save it to json on disk. Click Save to Oxen to save the prompts to Oxen.")
     prompt = gr.Textbox(label = "Enter bad prompt here", lines = 2)
+    outputprompt = gr.Textbox(label = "Prompt entered")
     button1 = gr.Button(value = "Save prompt to json")
-    button1.click(update_bad_prompt, inputs = prompt)
+    button1.click(update_bad_prompt, inputs = prompt, outputs = outputprompt)
 
     #save the jsonl to oxen repo
     oxbutton = gr.Button(value="Save to Oxen")
