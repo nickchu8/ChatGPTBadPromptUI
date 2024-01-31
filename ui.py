@@ -1,7 +1,6 @@
 import gradio as gr
 import os
 import oxen
-from oxen import LocalRepo
 from oxen.auth import config_auth
 from oxen.user import config_user
 import json
@@ -32,7 +31,7 @@ def update_bad_prompt(input_text):
         writer.write_all(data)
     return bad_prompt
 
-def button_callback():
+def oxbutton_callback():
     '''
     when button is clicked, prompts.json is pushed to oxen repo, clear jsonl
     '''
@@ -46,8 +45,8 @@ with gr.Blocks() as demo:
     button1.click(update_bad_prompt, inputs = prompt)
 
     #save the jsonl to oxen repo
-    button = gr.Button(value="Save to Oxen")
-    button.click(button_callback)
+    oxbutton = gr.Button(value="Save to Oxen")
+    oxbutton.click(oxbutton_callback)
 
 # demo = gr.Interface(
 #     fn=update_bad_prompt,

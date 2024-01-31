@@ -1,0 +1,6 @@
+path = 'C:\Users\nyc8p\OneDrive\Documents\GitHub\ChatGPTBadPromptUI\ChatGPTOxenrepo'
+remote_name = "origin"
+
+[[remotes]]
+name = "origin"
+url = "https://hub.oxen.ai/nickchu8/ChatGPTBadAnswerPrompt2"
